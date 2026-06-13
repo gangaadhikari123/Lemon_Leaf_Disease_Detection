@@ -1,0 +1,178 @@
+# ================================================================
+#  Lemon Disease Project — .gitignore
+#  Covers: Django + TensorFlow/Keras + Flutter + Ubuntu/VS Code
+# ================================================================
+
+
+# ── Python / Django ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+.Python
+
+# Virtual environment
+lemon_env/
+venv/
+env/
+.venv/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Django media uploads (user-uploaded leaf images)
+media/
+
+# Django static files (collected)
+staticfiles/
+static_collected/
+
+# Django migrations (optional — some teams commit these)
+# Uncomment below if you do NOT want to commit migrations:
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Environment variables / secrets
+.env
+.env.*
+*.env
+secrets.py
+
+
+# ── Machine Learning / TensorFlow ────────────────────────────────
+# Trained model weights (too large for git — use Git LFS or cloud storage)
+saved_models/
+*.h5
+*.keras
+*.tflite
+*.pb
+*.ckpt
+*.ckpt.*
+*.index
+*.data-00000-of-00001
+
+# TensorBoard logs
+logs/
+runs/
+
+# Training reports and generated plots
+reports/*.png
+reports/*.jpg
+reports/*.csv
+reports/*.txt
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Dataset images (too large for git — store on Google Drive / Kaggle)
+data/stage1_binary/
+data/stage2_disease/
+data/downloads/
+
+
+# ── Flutter / Dart ───────────────────────────────────────────────
+# Build outputs
+frontend/build/
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+
+# Dart tool
+frontend/.pub-cache/
+frontend/.pub/
+
+# Android
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/key.properties          # signing keys — never commit
+frontend/android/app/google-services.json
+frontend/android/captures/
+frontend/android/*.keystore
+frontend/android/*.jks
+
+# iOS
+frontend/ios/.symlinks/
+frontend/ios/Flutter/flutter_export_environment.sh
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Pods/
+frontend/ios/GoogleService-Info.plist    # Firebase config — never commit
+frontend/ios/**/*.mode1v3
+frontend/ios/**/*.mode2v3
+frontend/ios/**/*.perspectivev3
+frontend/ios/**/*.xcworkspace
+
+# macOS
+frontend/macos/Flutter/GeneratedPluginRegistrant.swift
+frontend/macos/Flutter/ephemeral/
+
+# Linux
+frontend/linux/flutter/generated_plugin_registrant.cc
+frontend/linux/flutter/generated_plugin_registrant.h
+frontend/linux/flutter/generated_plugins.cmake
+
+# Windows
+frontend/windows/flutter/generated_plugin_registrant.cc
+frontend/windows/flutter/generated_plugin_registrant.h
+frontend/windows/flutter/generated_plugins.cmake
+
+
+# ── VS Code ──────────────────────────────────────────────────────
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/*.code-workspace
+
+# Keep these VS Code files (useful for team):
+!.vscode/extensions.json
+
+
+# ── OS Files ─────────────────────────────────────────────────────
+# Ubuntu / Linux
+.DS_Store
+.directory
+*.swp
+*.swo
+*~
+.Trash-*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+# ── Miscellaneous ────────────────────────────────────────────────
+# Compressed files
+*.zip
+*.tar.gz
+*.tar.xz
+*.rar
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# pytest
+.pytest_cache/
+.tox/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+
+# Node (if any frontend tooling added later)
+node_modules/
+npm-debug.log*
