@@ -9,29 +9,41 @@ docker-compose up --build
 
 http://127.0.0.1:8000/api/predict-ui/
 
-
 backend/
-├── config/                      → Django settings only
+├── 📂 config/                     → Django project settings only
+│   ├── settings.py               → INSTALLED_APPS, CORS, MEDIA, DB config
+│   ├── urls.py                   → Root URL router
+│   ├── wsgi.py                   → Production entry point
+│   └── asgi.py                   → Async support (optional)
 │
-├── apps/
-│   └── predictor/
-│       ├── models.py            → DB models
-│       ├── views.py            → API
-│       ├── urls.py
-│       ├── serializers.py
-│       ├── services.py         
+├── 📂 apps/
+│   └── 📂 predictor/             → Main ML prediction API app
+│       ├── models.py             → PredictionRecord DB model
+│       ├── views.py              → API endpoints (upload, predict, history)
+│       ├── urls.py               → API routes
+│       ├── serializers.py        → JSON serialization (DRF)
+│       ├── services.py           → Business logic (prediction workflow)
+│       ├── treatments.py         → Disease treatments (EN + NP)
+│       ├── admin.py              → Django admin setup
+│       └── utils.py            → Image preprocessing + helper functions  
 │
-├── ml/
-│   ├── models/
-│   │   └── models.keras
-│   ├── pipeline/
-│   │   └── predict.py
-│   ├── utils/
+├── 📂 ml/
+│   ├── 📂 models/
+│   │   └── models.keras          → Trained ConvNeXt / CNN model
+│   │
+│   ├── 📂 pipeline/
+│   │   └── predict.py            → Load model + run inference
+│   
 │
-├── media/
+├── 📂 media/
+│                  
+│
+├── 📂 docker/
+│   ├── Dockerfile
+│   └── docker-compose.yml
+│
 ├── manage.py
 ├── requirements.txt
-└── docker/
 
 
 
