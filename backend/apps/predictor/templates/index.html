@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lemon Leaf Disease Detection</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #d4fc79, #96e6a1);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 500px;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            color: #2e7d32;
+        }
+
+        input {
+            margin: 15px 0;
+        }
+
+        #previewImage {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 3px solid #2e7d32;
+            display: none;
+        }
+
+        button {
+            background: #2e7d32;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1b5e20;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f1f8e9;
+            text-align: left;
+            min-height: 100px;
+        }
+
+        .leaf {
+            color: green;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .not-leaf {
+            color: #b71c1c;
+            font-weight: bold;
+            font-size: 18px;
+            background: #ffebee;
+            padding: 10px;
+            border-left: 6px solid #e53935;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-top: 10px;
+        }
+
+        .lang-title {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>🍋 Lemon Leaf Disease Detection</h2>
+
+    <input type="file" id="imageInput" accept="image/*">
+
+    <br>
+
+    <img id="previewImage">
+
+    <br>
+
+    <button onclick="predict()">Predict</button>
+
+    <div class="result" id="resultBox">
+        Result will appear here...
+    </div>
+
+</div>
+
+<script>
+
+// IMAGE PREVIEW
+document.getElementById("imageInput").addEventListener("change", function(event) {
+
+    let file = event.target.files[0];
+
+    if (file) {
+        let preview = document.getElementById("previewImage");
+
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+});
+
+
+// PREDICT FUNCTION
+async function predict() {
+
+    let fileInput = document.getElementById("imageInput");
+    let file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please upload an image");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("image", file);
+
+    let response = await fetch("/api/predict/", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await response.json();
+
+    let box = document.getElementById("resultBox");
+
+    // NOT LEMON LEAF
+    if (data.result !== "Lemon Leaf Detected") {
+
+        box.innerHTML = `
+            <div class="not-leaf">❌ Not a Lemon Leaf</div>
+            <p>This image is not a valid lemon leaf.</p>
+        `;
+        return;
+    }
+
+    // 🌿 LEMON LEAF RESULT
+    let en = data.treatment.en;
+    let np = data.treatment.np;
+
+    box.innerHTML = `
+        <div class="leaf">🌿 Lemon Leaf Detected</div>
+
+        <p><b>Disease:</b> ${data.disease}</p>
+
+        <hr>
+
+        <div class="section">
+            <div class="lang-title">🇬🇧 English</div>
+            <p><b>Status:</b> ${en.status}</p>
+            <p><b>Treatment:</b></p>
+            <ul>${en.treatment.map(i => `<li>${i}</li>`).join("")}</ul>
+            <p><b>Prevention:</b></p>
+            <ul>${en.prevention.map(i => `<li>${i}</li>`).join("")}</ul>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <div class="lang-title">🇳🇵 नेपाली</div>
+            <p><b>स्थिति:</b> ${np.status}</p>
+            <p><b>उपचार:</b></p>
+            <ul>${np.treatment.map(i => `<li>${i}</li>`).join("")}</ul>
+            <p><b>रोकथाम:</b></p>
+            <ul>${np.prevention.map(i => `<li>${i}</li>`).join("")}</ul>
+        </div>
+    `;
+}
+
+</script>
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,14 @@
+Google Drive link for model
+1. Lemon Leaf Detection Model (CNN):   
+https://drive.google.com/file/d/1Qjkj4cd7GMiDtkrKnA7yieDjrO7bBEiX/view?usp=drive_link
+
+
+Lemon Disease Classification Model (MobileNetV2):
+https://drive.google.com/file/d/1HakOXBoW214WjrpWHHwXZ58wRkBJpxud/view?usp=drive_link
+
+
+download this two folder and add it on this path
+
+
+
+

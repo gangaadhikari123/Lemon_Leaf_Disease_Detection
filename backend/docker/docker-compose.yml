@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+
+    container_name: lemon_backend
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ..:/app   # IMPORTANT FIX
+      - ../media:/app/media
