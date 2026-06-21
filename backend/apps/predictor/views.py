@@ -8,6 +8,7 @@ from .utils import preprocess
 from .models import PredictionHistory
 from .services import get_treatment   
 from .models import PredictionHistory
+import json
 
 
 # UI Page
