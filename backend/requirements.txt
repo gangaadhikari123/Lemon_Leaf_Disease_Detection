@@ -1,0 +1,9 @@
+Django
+numpy
+pandas
+pillow
+opencv-python
+tensorflow
+scikit-learn
+matplotlib
+djangorestframework
