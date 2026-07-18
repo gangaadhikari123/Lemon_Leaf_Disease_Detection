@@ -1,5 +1,0 @@
-if [ -f requirements.txt ]; then
-  grep -qxF 'Pillow' requirements.txt || echo 'Pillow' >> requirements.txt
-else
-  echo 'Pillow' > requirements.txt
-fi
