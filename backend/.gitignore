@@ -1,0 +1,28 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+db.sqlite3
+*.log
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# ML / model files (optional if large)
+*.h5
+*.keras
+*.pkl
+
+# TensorFlow cache
+.cache/
