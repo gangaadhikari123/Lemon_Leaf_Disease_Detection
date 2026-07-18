@@ -10,7 +10,10 @@ from .services import get_treatment
 from .models import PredictionHistory
 import json
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0facd62 (backend code)
 # UI Page
 def predict_ui(request):
     return render(request, "index.html")
@@ -34,6 +37,13 @@ def predict_image(request):
         # 2. PREPROCESS
         img_array = preprocess(image)
 
+<<<<<<< HEAD
+=======
+   
+
+        
+
+>>>>>>> 0facd62 (backend code)
       
         # 3. LEAF DETECTION
         leaf_pred = leaf_model.predict(img_array)
@@ -170,4 +180,8 @@ def history(request):
     return JsonResponse({
         "count": len(results),
         "results": results
+<<<<<<< HEAD
     })
+=======
+    }) 
+>>>>>>> 0facd62 (backend code)
