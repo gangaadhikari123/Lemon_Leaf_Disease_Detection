@@ -1,58 +1,99 @@
-class TreatmentData {
+class TreatmentLanguage {
   final String status;
-  final String description;
   final List<String> treatment;
   final List<String> prevention;
-  final String severity;   // 'none', 'medium', 'high'
 
-  TreatmentData({
+  TreatmentLanguage({
     required this.status,
-    required this.description,
     required this.treatment,
     required this.prevention,
-    required this.severity,
   });
 
-  factory TreatmentData.fromJson(Map<String, dynamic> json) => TreatmentData(
-    status:      json['status'] ?? '',
-    description: json['description'] ?? '',
-    treatment:   List<String>.from(json['treatment'] ?? []),
-    prevention:  List<String>.from(json['prevention'] ?? []),
-    severity:    json['severity'] ?? 'none',
-  );
+  factory TreatmentLanguage.fromJson(Map<String, dynamic> json) {
+    return TreatmentLanguage(
+      status:     json['status']     ?? '',
+      treatment:  List<String>.from(json['treatment']  ?? []),
+      prevention: List<String>.from(json['prevention'] ?? []),
+    );
+  }
+}
+
+class TreatmentData {
+  final TreatmentLanguage en;
+  final TreatmentLanguage np;
+
+  TreatmentData({required this.en, required this.np});
+
+  factory TreatmentData.fromJson(Map<String, dynamic> json) {
+    return TreatmentData(
+      en: TreatmentLanguage.fromJson(json['en'] ?? {}),
+      np: TreatmentLanguage.fromJson(json['np'] ?? {}),
+    );
+  }
+
+  TreatmentLanguage forLanguage(String lang) => lang == 'np' ? np : en;
 }
 
 class PredictionResult {
-  final int id;
   final bool isLemon;
-  final String finalLabel;
+  final String disease;
   final double confidence;
-  final String message;
   final TreatmentData? treatment;
+  final String result;
 
   PredictionResult({
-    required this.id,
     required this.isLemon,
-    required this.finalLabel,
+    required this.disease,
     required this.confidence,
-    required this.message,
+    required this.result,
     this.treatment,
   });
 
-  factory PredictionResult.fromJson(Map<String, dynamic> json) => PredictionResult(
-    id:         json['id'] ?? 0,
-    isLemon:    json['is_lemon'] ?? false,
-    finalLabel: json['final_label'] ?? 'unknown',
-    confidence: (json['confidence'] ?? 0.0).toDouble(),
-    message:    json['message'] ?? '',
-    treatment:  json['treatment'] != null
-                    ? TreatmentData.fromJson(json['treatment'])
-                    : null,
-  );
+  factory PredictionResult.fromJson(Map<String, dynamic> json) {
+    print('=== RAW API RESPONSE ===');
+    print(json);
+    print('========================');
 
-  bool get isHealthy   => finalLabel == 'healthy';
-  bool get isNotLemon  => !isLemon;
+    final resultStr = (json['result'] ?? '').toString();
+    final isLemon   = resultStr == 'Lemon Leaf Detected';
+    final disease   = (json['disease'] ?? '').toString();
 
-  // Color based on severity
-  String get severityLevel => treatment?.severity ?? 'none';
+    double confidence = 0.0;
+    if (json['leaf_confidence'] != null) {
+      confidence = (json['leaf_confidence'] as num).toDouble();
+    } else if (json['confidence'] != null) {
+      confidence = (json['confidence'] as num).toDouble();
+    } else if (json['disease_confidence'] != null) {
+      confidence = (json['disease_confidence'] as num).toDouble();
+    }
+
+    TreatmentData? treatment;
+    if (json['treatment'] != null) {
+      try {
+        treatment = TreatmentData.fromJson(json['treatment']);
+      } catch (e) {
+        print('Treatment parse error: $e');
+      }
+    }
+
+    return PredictionResult(
+      result:     resultStr,
+      isLemon:    isLemon,
+      disease:    disease,
+      confidence: confidence,
+      treatment:  treatment,
+    );
+  }
+
+  bool get isHealthy  => disease.toLowerCase().contains('healthy');
+  bool get isNotLemon => !isLemon;
+
+  String get severityLevel {
+    if (!isLemon) return 'none';
+    final d = disease.toLowerCase();
+    if (d.contains('canker') || d.contains('blight') ||
+        d.contains('curl')   || d.contains('virus')) return 'high';
+    if (d.contains('healthy')) return 'none';
+    return 'medium';
+  }
 }

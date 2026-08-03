@@ -10,7 +10,7 @@
         android:maxSdkVersion="32"/>
 
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:label="Lemon Disease Detector"
         android:name="${applicationName}"
