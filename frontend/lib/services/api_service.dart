@@ -6,7 +6,7 @@ import '../models/prediction_model.dart';
 
 class ApiService {
   // Android emulator → 10.0.2.2
-  // Linux/Chrome dev → 127.0.0.1
+  // Linux/Chrome dev → 127.0.0.1 
   // Real phone → your computer IP e.g. 192.168.1.105
   static const String baseUrl = 'http://127.0.0.1:8000/api';
 

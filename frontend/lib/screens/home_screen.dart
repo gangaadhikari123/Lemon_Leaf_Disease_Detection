@@ -844,9 +844,7 @@
 //       ),
 //     );
 //   }
-// } 
-
-
+// }
 
 import 'dart:io';
 import 'dart:typed_data';
@@ -870,11 +868,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = false;
   final ImagePicker _picker = ImagePicker();
-  int _bottomNavIndex = 0; // 0 = Home, 1 = About (About screen not wired — UI only)
+  int _bottomNavIndex =
+      0; // 0 = Home, 1 = About (About screen not wired — UI only)
 
-  bool get _isWeb     => kIsWeb;
-  bool get _isMobile  => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
-  bool get _isDesktop => !kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS);
+  bool get _isWeb => kIsWeb;
+  bool get _isMobile => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+  bool get _isDesktop =>
+      !kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS);
 
   // ── SCAN — opens camera on mobile/web, shows dialog on desktop ─
   // (unchanged logic)
@@ -902,10 +902,13 @@ class _HomeScreenState extends State<HomeScreen> {
           language: lang.language,
         );
         if (!mounted) return;
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_) => ResultScreen(result: prediction, imageBytes: captured.bytes),
-        ));
-
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                ResultScreen(result: prediction, imageBytes: captured.bytes),
+          ),
+        );
       } else if (_isMobile) {
         final XFile? picked = await _picker.pickImage(
           source: ImageSource.camera,
@@ -922,9 +925,13 @@ class _HomeScreenState extends State<HomeScreen> {
           language: lang.language,
         );
         if (!mounted) return;
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_) => ResultScreen(result: prediction, imageFile: imageFile),
-        ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                ResultScreen(result: prediction, imageFile: imageFile),
+          ),
+        );
       }
     } on Exception catch (e) {
       if (!mounted) return;
@@ -953,10 +960,12 @@ class _HomeScreenState extends State<HomeScreen> {
           language: lang.language,
         );
         if (!mounted) return;
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_) => ResultScreen(result: prediction, imageBytes: bytes),
-        ));
-
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ResultScreen(result: prediction, imageBytes: bytes),
+          ),
+        );
       } else if (_isMobile) {
         final XFile? picked = await _picker.pickImage(
           source: ImageSource.gallery,
@@ -972,17 +981,20 @@ class _HomeScreenState extends State<HomeScreen> {
           language: lang.language,
         );
         if (!mounted) return;
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_) => ResultScreen(result: prediction, imageFile: imageFile),
-        ));
-
-      } else if (_isDesktop) {
-        final FilePickerResult? pickerResult =
-            await FilePicker.platform.pickFiles(
-          type: FileType.image,
-          allowMultiple: false,
-          withData: true,
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                ResultScreen(result: prediction, imageFile: imageFile),
+          ),
         );
+      } else if (_isDesktop) {
+        final FilePickerResult? pickerResult = await FilePicker.platform
+            .pickFiles(
+              type: FileType.image,
+              allowMultiple: false,
+              withData: true,
+            );
         if (pickerResult == null || pickerResult.files.isEmpty) return;
         final PlatformFile platformFile = pickerResult.files.single;
         setState(() => _isLoading = true);
@@ -994,12 +1006,13 @@ class _HomeScreenState extends State<HomeScreen> {
             language: lang.language,
           );
           if (!mounted) return;
-          Navigator.push(context, MaterialPageRoute(
-            builder: (_) => ResultScreen(
-              result: prediction,
-              imageFile: imageFile,
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) =>
+                  ResultScreen(result: prediction, imageFile: imageFile),
             ),
-          ));
+          );
         } else if (platformFile.bytes != null) {
           final prediction = await ApiService.predictDiseaseFromBytes(
             imageBytes: platformFile.bytes!,
@@ -1007,12 +1020,15 @@ class _HomeScreenState extends State<HomeScreen> {
             language: lang.language,
           );
           if (!mounted) return;
-          Navigator.push(context, MaterialPageRoute(
-            builder: (_) => ResultScreen(
-              result: prediction,
-              imageBytes: platformFile.bytes,
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ResultScreen(
+                result: prediction,
+                imageBytes: platformFile.bytes,
+              ),
             ),
-          ));
+          );
         }
       }
     } on Exception catch (e) {
@@ -1031,14 +1047,16 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Row(children: [
-          const Icon(Icons.info_outline, color: Color(0xFF2E7D32)),
-          const SizedBox(width: 10),
-          Text(
-            lang.t('Camera Not Available', 'क्यामेरा उपलब्ध छैन'),
-            style: const TextStyle(fontSize: 16),
-          ),
-        ]),
+        title: Row(
+          children: [
+            const Icon(Icons.info_outline, color: Color(0xFF2E7D32)),
+            const SizedBox(width: 10),
+            Text(
+              lang.t('Camera Not Available', 'क्यामेरा उपलब्ध छैन'),
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
         content: Text(
           lang.t(
             'Camera scanning is only available on mobile phones.\n\nPlease use "Upload Photo" to select an image from your computer, or use the mobile app to scan with your camera.',
@@ -1074,11 +1092,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Row(children: [
-          const Icon(Icons.error_outline, color: Colors.white),
-          const SizedBox(width: 10),
-          Expanded(child: Text(message)),
-        ]),
+        content: Row(
+          children: [
+            const Icon(Icons.error_outline, color: Colors.white),
+            const SizedBox(width: 10),
+            Expanded(child: Text(message)),
+          ],
+        ),
         backgroundColor: Colors.red[700],
         duration: const Duration(seconds: 4),
       ),
@@ -1141,7 +1161,10 @@ class _HomeScreenState extends State<HomeScreen> {
             _buildDots(),
             const SizedBox(height: 22),
             Text(
-              lang.t('Detect Lemon Leaf Diseases 🍃', 'कागती पातका रोगहरू पत्ता लगाउनुहोस् 🍃'),
+              lang.t(
+                'Detect Lemon Leaf Diseases 🍃',
+                'कागती पातका रोगहरू पत्ता लगाउनुहोस् 🍃',
+              ),
               style: const TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -1150,7 +1173,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Text(
-              lang.t('Using Deep Learning (CNN)', 'डीप लर्निङ (CNN) प्रयोग गरेर'),
+              lang.t(
+                'Using Deep Learning (CNN)',
+                'डीप लर्निङ (CNN) प्रयोग गरेर',
+              ),
               style: const TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -1164,7 +1190,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Upload or scan a lemon leaf image to instantly identify diseases and receive treatment recommendations.',
                 'रोग पहिचान गर्न र उपचार सुझाव पाउन कागती पातको फोटो अपलोड वा स्क्यान गर्नुहोस्।',
               ),
-              style: TextStyle(fontSize: 14, color: Colors.grey[600], height: 1.5),
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[600],
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 24),
             _buildActionButtons(lang),
@@ -1188,12 +1218,15 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Text(
+              //   lang.t('Automated', 'स्वचालित'),
+              //   style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+              // ),
               Text(
-                lang.t('Automated', 'स्वचालित'),
-                style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-              ),
-              Text(
-                lang.t('Lemon Leaf Disease\nDetection Using CNN', 'कागती पातको रोग\nपहिचान (CNN प्रयोग गरी)'),
+                lang.t(
+                  'Autmomated Lemon\n Leaf Disease Detection \nUsing CNN',
+                  'स्वचालित कागती \nपातको रोग पहिचान \n(CNN प्रयोग गरी)',
+                ),
                 style: const TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.bold,
@@ -1218,7 +1251,11 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Colors.grey[300]!),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 6, offset: const Offset(0, 2)),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
         ],
       ),
       child: GestureDetector(
@@ -1260,7 +1297,11 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
-          BoxShadow(color: const Color(0xFF2E7D32).withOpacity(0.18), blurRadius: 16, offset: const Offset(0, 8)),
+          BoxShadow(
+            color: const Color(0xFF2E7D32).withOpacity(0.18),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
         ],
       ),
       child: ClipRRect(
@@ -1273,14 +1314,39 @@ class _HomeScreenState extends State<HomeScreen> {
               fit: BoxFit.cover,
               errorBuilder: (context, error, stack) => Container(
                 color: const Color(0xFF2E7D32).withOpacity(0.15),
-                child: const Icon(Icons.eco, size: 60, color: Color(0xFF2E7D32)),
+                child: const Icon(
+                  Icons.eco,
+                  size: 60,
+                  color: Color(0xFF2E7D32),
+                ),
               ),
             ),
             // corner scan-frame brackets (decorative)
             const Positioned(top: 16, left: 16, child: _ScanCorner()),
-            Positioned(top: 16, right: 16, child: Transform.rotate(angle: 1.5708, child: const _ScanCorner())),
-            Positioned(bottom: 16, left: 16, child: Transform.rotate(angle: -1.5708, child: const _ScanCorner())),
-            Positioned(bottom: 16, right: 16, child: Transform.rotate(angle: 3.1416, child: const _ScanCorner())),
+            Positioned(
+              top: 16,
+              right: 16,
+              child: Transform.rotate(
+                angle: 1.5708,
+                child: const _ScanCorner(),
+              ),
+            ),
+            Positioned(
+              bottom: 16,
+              left: 16,
+              child: Transform.rotate(
+                angle: -1.5708,
+                child: const _ScanCorner(),
+              ),
+            ),
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: Transform.rotate(
+                angle: 3.1416,
+                child: const _ScanCorner(),
+              ),
+            ),
 
             // "AI SCANNING" badge — left side
             Positioned(
@@ -1290,11 +1356,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.45),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.greenAccent.withOpacity(0.5)),
+                    border: Border.all(
+                      color: Colors.greenAccent.withOpacity(0.5),
+                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -1302,11 +1373,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         width: 7,
                         height: 7,
-                        decoration: const BoxDecoration(color: Colors.greenAccent, shape: BoxShape.circle),
+                        decoration: const BoxDecoration(
+                          color: Colors.greenAccent,
+                          shape: BoxShape.circle,
+                        ),
                       ),
                       const SizedBox(width: 7),
                       Text(
-                        lang.t('AI SCANNING', 'AI स्क्यानिङ'),
+                        lang.t('LEMON LEAF SCANNING', 'कागती रोग स्क्यानिङ'),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 11,
@@ -1329,18 +1403,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.centerRight,
                 child: Container(
                   width: 108,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.55),
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.greenAccent.withOpacity(0.4)),
+                    border: Border.all(
+                      color: Colors.greenAccent.withOpacity(0.4),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         lang.t('DETECTION', 'पहिचान'),
-                        style: const TextStyle(color: Colors.white70, fontSize: 9.5, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Center(
@@ -1349,9 +1433,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 34,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.greenAccent, width: 1.5),
+                            border: Border.all(
+                              color: Colors.greenAccent,
+                              width: 1.5,
+                            ),
                           ),
-                          child: const Icon(Icons.check, color: Colors.greenAccent, size: 18),
+                          child: const Icon(
+                            Icons.check,
+                            color: Colors.greenAccent,
+                            size: 18,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -1359,17 +1450,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 8),
                       Text(
                         lang.t('HEALTHY', 'स्वस्थ'),
-                        style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         lang.t('CONFIDENCE', 'विश्वास'),
-                        style: const TextStyle(color: Colors.white54, fontSize: 8.5, fontWeight: FontWeight.w600),
+                        style: const TextStyle(
+                          color: Colors.white54,
+                          fontSize: 8.5,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       const SizedBox(height: 3),
                       Text(
                         '98.6%',
-                        style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       ClipRRect(
@@ -1378,7 +1481,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           value: 0.986,
                           minHeight: 4,
                           backgroundColor: Colors.white24,
-                          valueColor: const AlwaysStoppedAnimation(Colors.greenAccent),
+                          valueColor: const AlwaysStoppedAnimation(
+                            Colors.greenAccent,
+                          ),
                         ),
                       ),
                     ],
@@ -1406,13 +1511,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _dot(bool active) => Container(
-        width: active ? 18 : 6,
-        height: 6,
-        decoration: BoxDecoration(
-          color: active ? const Color(0xFF2E7D32) : Colors.grey[300],
-          borderRadius: BorderRadius.circular(3),
-        ),
-      );
+    width: active ? 18 : 6,
+    height: 6,
+    decoration: BoxDecoration(
+      color: active ? const Color(0xFF2E7D32) : Colors.grey[300],
+      borderRadius: BorderRadius.circular(3),
+    ),
+  );
 
   // ── Scan Leaf / Upload Image buttons ───────────────────────────
   Widget _buildActionButtons(LanguageProvider lang) {
@@ -1451,8 +1556,11 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icons.eco_rounded,
             iconBg: const Color(0xFFE0F2E9),
             iconColor: const Color(0xFF2E7D32),
-            title: lang.t('AI Disease\nDetection', 'AI रोग\nपहिचान'),
-            subtitle: lang.t('Advanced CNN model to accurately detect lemon leaf diseases.', 'सटीक रूपमा कागती पातका रोगहरू पत्ता लगाउन उन्नत CNN मोडेल।'),
+            title: lang.t('Lemon Disease\nDetection', 'कागती रोग\nपहिचान'),
+            subtitle: lang.t(
+              'Advanced CNN model to accurately detect lemon leaf diseases.',
+              'सटीक रूपमा कागती पातका रोगहरू पत्ता लगाउन उन्नत CNN मोडेल।',
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -1462,7 +1570,10 @@ class _HomeScreenState extends State<HomeScreen> {
             iconBg: Colors.amber[100]!,
             iconColor: Colors.amber[800]!,
             title: lang.t('Instant\nResults', 'तुरुन्त\nनतिजा'),
-            subtitle: lang.t('Get fast and accurate results within seconds.', 'सेकेन्डभित्रै छिटो र सही नतिजा पाउनुहोस्।'),
+            subtitle: lang.t(
+              'Get fast and accurate results within seconds.',
+              'सेकेन्डभित्रै छिटो र सही नतिजा पाउनुहोस्।',
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -1472,7 +1583,10 @@ class _HomeScreenState extends State<HomeScreen> {
             iconBg: const Color(0xFFE0F2E9),
             iconColor: const Color(0xFF2E7D32),
             title: lang.t('Treatment\nSuggestions', 'उपचार\nसुझाव'),
-            subtitle: lang.t('Receive effective treatment and care recommendations.', 'प्रभावकारी उपचार र स्याहार सुझाव पाउनुहोस्।'),
+            subtitle: lang.t(
+              'Receive effective treatment and care recommendations.',
+              'प्रभावकारी उपचार र स्याहार सुझाव पाउनुहोस्।',
+            ),
           ),
         ),
       ],
@@ -1486,7 +1600,11 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, -3)),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 12,
+            offset: const Offset(0, -3),
+          ),
         ],
       ),
       child: SafeArea(
@@ -1526,10 +1644,7 @@ class _ScanCorner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: const Size(28, 28),
-      painter: _CornerPainter(),
-    );
+    return CustomPaint(size: const Size(28, 28), painter: _CornerPainter());
   }
 }
 
@@ -1578,9 +1693,17 @@ class _ActionCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: filled ? const Color(0xFF2E7D32) : Colors.white,
           borderRadius: BorderRadius.circular(18),
-          border: filled ? null : Border.all(color: const Color(0xFF2E7D32).withOpacity(0.4)),
+          border: filled
+              ? null
+              : Border.all(color: const Color(0xFF2E7D32).withOpacity(0.4)),
           boxShadow: filled
-              ? [BoxShadow(color: const Color(0xFF2E7D32).withOpacity(0.25), blurRadius: 12, offset: const Offset(0, 6))]
+              ? [
+                  BoxShadow(
+                    color: const Color(0xFF2E7D32).withOpacity(0.25),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ]
               : null,
         ),
         child: Column(
@@ -1590,7 +1713,9 @@ class _ActionCard extends StatelessWidget {
               width: 44,
               height: 44,
               decoration: BoxDecoration(
-                color: filled ? Colors.white : const Color(0xFF2E7D32).withOpacity(0.1),
+                color: filled
+                    ? Colors.white
+                    : const Color(0xFF2E7D32).withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: const Color(0xFF2E7D32), size: 22),
@@ -1656,12 +1781,20 @@ class _FeatureCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             title,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF1B2E1B)),
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1B2E1B),
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 10.5, color: Colors.grey[600], height: 1.35),
+            style: TextStyle(
+              fontSize: 10.5,
+              color: Colors.grey[600],
+              height: 1.35,
+            ),
           ),
         ],
       ),
@@ -1696,10 +1829,24 @@ class _NavItem extends StatelessWidget {
           children: [
             Icon(icon, color: color, size: 24),
             const SizedBox(height: 4),
-            Text(label, style: TextStyle(fontSize: 12, color: color, fontWeight: active ? FontWeight.bold : FontWeight.normal)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                color: color,
+                fontWeight: active ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
             const SizedBox(height: 4),
             if (active)
-              Container(width: 18, height: 2.5, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
+              Container(
+                width: 18,
+                height: 2.5,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
           ],
         ),
       ),
