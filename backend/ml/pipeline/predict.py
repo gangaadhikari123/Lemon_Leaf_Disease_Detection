@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 
 MODEL_DIR = os.path.join(settings.BASE_DIR, "ml", "models")
 
-leaf_model = load_model(os.path.join(MODEL_DIR, "leaf_detector_model.keras"))
+leaf_model = load_model(os.path.join(MODEL_DIR, "mobilenetv2_model1.keras"))
 disease_model = load_model(os.path.join(MODEL_DIR, "lemon_disease_model.keras"))
 
 class_names = [
@@ -17,4 +17,7 @@ class_names = [
     'Healthy Leaf',
     'Sooty Mould',
     'Spider Mites'
-]
+] 
+
+
+
