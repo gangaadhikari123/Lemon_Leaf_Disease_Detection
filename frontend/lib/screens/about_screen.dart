@@ -162,167 +162,142 @@ class AboutScreen extends StatelessWidget {
     // classes section instead of doing nothing.
     final diseaseSectionKey = GlobalKey();
 
-    final width = MediaQuery.of(context).size.width;
-    final isSmall = width < 360;
-    final isTablet = width >= 600;
-    final horizontalPad = isSmall ? 14.0 : (isTablet ? 32.0 : 20.0);
-
     return Scaffold(
       backgroundColor: const Color(0xFFF3F8EE),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(horizontalPad, 16, horizontalPad, 32),
-          child: Center(
-            child: ConstrainedBox(
-              constraints:
-                  BoxConstraints(maxWidth: isTablet ? 640 : double.infinity),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(context, lang, isSmall),
-                  const SizedBox(height: 24),
-                  _buildHeroBanner(context, lang, diseaseSectionKey, isSmall),
-                  const SizedBox(height: 20),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(context, lang),
+              const SizedBox(height: 24),
+              _buildHeroBanner(context, lang, diseaseSectionKey),
+              const SizedBox(height: 20),
 
-                  // ══ Project description ══
-                  _sectionCard(
-                    icon: Icons.info_outline_rounded,
-                    iconColor: _green,
-                    title: lang.t('About This Project', 'यो प्रोजेक्टको बारेमा'),
-                    isSmall: isSmall,
-                    child: Text(
-                      lang.t(
-                        'This app is built to help farmers and gardeners quickly identify lemon leaf diseases in the field. Scan or upload a leaf photo and the app analyzes it using deep learning to detect common diseases, pests, and leaf conditions, then suggests treatment and prevention steps — helping protect lemon trees and improve yield. It was developed as an academic project applying deep learning to real agricultural problems.',
-                        'यो एप कागती किसान र बगैंचा पालकहरूलाई खेतमै छिटो पात रोग पहिचान गर्न मद्दत गर्नको लागि बनाइएको हो। पातको फोटो स्क्यान वा अपलोड गर्नुहोस्, एपले deep learning प्रयोग गरी सामान्य रोग, किरा र पातका समस्या पत्ता लगाउँछ र उपचार तथा रोकथाम सुझाव दिन्छ — जसले कागतीको बोट सुरक्षित राख्न र उत्पादन सुधार गर्न मद्दत गर्छ। यो deep learning लाई वास्तविक कृषि समस्यामा लागू गरेर बनाइएको एउटा academic project हो।',
-                      ),
-                      style: TextStyle(
-                        fontSize: isSmall ? 12.5 : 13.5,
-                        color: Colors.grey[700],
-                        height: 1.6,
-                      ),
-                    ),
+              // ══ Project description — who it's for, why it was built ══
+              _sectionCard(
+                icon: Icons.info_outline_rounded,
+                iconColor: _green,
+                title: lang.t('About This Project', 'यो प्रोजेक्टको बारेमा'),
+                child: Text(
+                  lang.t(
+                    'This app is built to help farmers and gardeners quickly identify lemon leaf diseases in the field. Scan or upload a leaf photo and the app analyzes it using deep learning to detect common diseases, pests, and leaf conditions, then suggests treatment and prevention steps — helping protect lemon trees and improve yield. It was developed as an academic project applying deep learning to real agricultural problems.',
+                    'यो एप कागती किसान र बगैंचा पालकहरूलाई खेतमै छिटो पात रोग पहिचान गर्न मद्दत गर्नको लागि बनाइएको हो। पातको फोटो स्क्यान वा अपलोड गर्नुहोस्, एपले deep learning प्रयोग गरी सामान्य रोग, किरा र पातका समस्या पत्ता लगाउँछ र उपचार तथा रोकथाम सुझाव दिन्छ — जसले कागतीको बोट सुरक्षित राख्न र उत्पादन सुधार गर्न मद्दत गर्छ। यो deep learning लाई वास्तविक कृषि समस्यामा लागू गरेर बनाइएको एउटा academic project हो।',
                   ),
-                  const SizedBox(height: 24),
-
-                  // ══ "9 Lemon Leaf Classes Detected" — disease grid ══
-                  Text(
-                    lang.t(
-                      '9 Lemon Leaf Classes Detected',
-                      '९ कागती पात वर्गहरू पहिचान गरिन्छ',
-                    ),
-                    key: diseaseSectionKey,
-                    style: TextStyle(
-                      fontSize: isSmall ? 16 : 18,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1B2E1B),
-                    ),
+                  style: TextStyle(
+                    fontSize: 13.5,
+                    color: Colors.grey[700],
+                    height: 1.6,
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    lang.t(
-                      'Our CNN model is trained to classify lemon leaf images into one healthy category and eight common disease, pest, or leaf-condition categories.',
-                      'हाम्रो CNN मोडेललाई कागतीको पातको फोटोलाई एउटा स्वस्थ वर्ग र आठ सामान्य रोग, किरा वा पातको समस्या सम्बन्धी वर्गमा वर्गीकरण गर्न तालिम दिइएको छ।',
-                    ),
-                    style: TextStyle(
-                      fontSize: isSmall ? 12 : 13,
-                      color: Colors.grey[600],
-                      height: 1.5,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ..._diseaseClasses.map(
-                    (d) => _diseaseClassCard(context, lang, d, isSmall),
-                  ),
-
-                  const SizedBox(height: 8),
-                  _sectionCard(
-                    icon: Icons.checklist_rounded,
-                    iconColor: const Color(0xFF1565C0),
-                    title: lang.t('How to Use', 'कसरी प्रयोग गर्ने'),
-                    isSmall: isSmall,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _step(
-                          1,
-                          lang.t(
-                            'Open the app and go to the Home screen.',
-                            'एप खोलेर गृह मा जानुहोस्।',
-                          ),
-                          isSmall,
-                        ),
-                        _step(
-                          2,
-                          lang.t(
-                            'Tap "Scan Leaf" to use your camera, or "Upload Image" to choose a photo from your gallery.',
-                            '"पात स्क्यान " थिचेर क्यामेरा प्रयोग गर्नुहोस्, वा "फोटो अपलोड" थिचेर ग्यालरीबाट फोटो छान्नुहोस्।',
-                          ),
-                          isSmall,
-                        ),
-                        _step(
-                          3,
-                          lang.t(
-                            'Make sure the leaf is clearly visible and well-lit in the photo.',
-                            'फोटोमा पात स्पष्ट र राम्रो उज्यालोमा देखिने सुनिश्चित गर्नुहोस्।',
-                          ),
-                          isSmall,
-                        ),
-                        _step(
-                          4,
-                          lang.t(
-                            'Wait a few seconds while the app analyzes the leaf.',
-                            'एपले पात विश्लेषण गर्दा केही सेकेन्ड पर्खनुहोस्।',
-                          ),
-                          isSmall,
-                        ),
-                        _step(
-                          5,
-                          lang.t(
-                            'View the result along with suggested treatment, if any disease is detected.',
-                            'रोग पत्ता लागेमा नतिजा र उपचार सुझाव हेर्नुहोस्।',
-                          ),
-                          isSmall,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _sectionCard(
-                    icon: Icons.hub_outlined,
-                    iconColor: const Color(0xFF7B1FA2),
-                    title: lang.t('Model Information', 'मोडेल जानकारी'),
-                    isSmall: isSmall,
-                    child: Text(
-                      lang.t(
-                        'Leaf images are analyzed using a Convolutional Neural Network (CNN) trained on a dataset of healthy and diseased lemon leaf images to recognize visual patterns associated with common diseases.',
-                        'पातको फोटोलाई Convolutional Neural Network (CNN) प्रयोग गरी विश्लेषण गरिन्छ, जुन स्वस्थ र रोगी कागती पातका फोटोहरूको डेटासेट बाट तालिम प्राप्त गरिएको हो, ताकि सामान्य रोगहरूसँग सम्बन्धित दृश्य ढाँचा(visual pattern) चिन्न सकियोस्।',
-                      ),
-                      style: TextStyle(
-                        fontSize: isSmall ? 12.5 : 13.5,
-                        color: Colors.grey[700],
-                        height: 1.6,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Center(
-                    child: Text(
-                      lang.t(
-                        'Automated Lemon Leaf Disease Detection Using CNN ',
-                        'CNN प्रयोग गरी स्वचालित कागतीको पात रोग पहिचान प्रणाली ',
-                      ),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: isSmall ? 11 : 12,
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildFooter(lang),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(height: 24),
+
+              // ══ "9 Lemon Leaf Classes Detected" — disease grid ══════════
+              Text(
+                lang.t(
+                  '9 Lemon Leaf Classes Detected',
+                  '९ कागती पात वर्गहरू पहिचान गरिन्छ',
+                ),
+                key: diseaseSectionKey,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1B2E1B),
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                lang.t(
+                  'Our CNN model is trained to classify lemon leaf images into one healthy category and eight common disease, pest, or leaf-condition categories.',
+                  'हाम्रो CNN मोडेललाई कागतीको पातको फोटोलाई एउटा स्वस्थ वर्ग र आठ सामान्य रोग, किरा वा पातको समस्या सम्बन्धी वर्गमा वर्गीकरण गर्न तालिम दिइएको छ।',
+                ),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey[600],
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ..._diseaseClasses.map(
+                (d) => _diseaseClassCard(context, lang, d),
+              ),
+
+              const SizedBox(height: 8),
+              _sectionCard(
+                icon: Icons.checklist_rounded,
+                iconColor: const Color(0xFF1565C0),
+                title: lang.t('How to Use', 'कसरी प्रयोग गर्ने'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _step(
+                      1,
+                      lang.t(
+                        'Open the app and go to the Home screen.',
+                        'एप खोलेर गृह मा जानुहोस्।',
+                      ),
+                    ),
+                    _step(
+                      2,
+                      lang.t(
+                        'Tap "Scan Leaf" to use your camera, or "Upload Image" to choose a photo from your gallery.',
+                        '"पात स्क्यान " थिचेर क्यामेरा प्रयोग गर्नुहोस्, वा "फोटो अपलोड" थिचेर ग्यालरीबाट फोटो छान्नुहोस्।',
+                      ),
+                    ),
+                    _step(
+                      3,
+                      lang.t(
+                        'Make sure the leaf is clearly visible and well-lit in the photo.',
+                        'फोटोमा पात स्पष्ट र राम्रो उज्यालोमा देखिने सुनिश्चित गर्नुहोस्।',
+                      ),
+                    ),
+                    _step(
+                      4,
+                      lang.t(
+                        'Wait a few seconds while the app analyzes the leaf.',
+                        'एपले पात विश्लेषण गर्दा केही सेकेन्ड पर्खनुहोस्।',
+                      ),
+                    ),
+                    _step(
+                      5,
+                      lang.t(
+                        'View the result along with suggested treatment, if any disease is detected.',
+                        'रोग पत्ता लागेमा नतिजा र उपचार सुझाव हेर्नुहोस्।',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              _sectionCard(
+                icon: Icons.hub_outlined,
+                iconColor: const Color(0xFF7B1FA2),
+                title: lang.t('Model Information', 'मोडेल जानकारी'),
+                child: Text(
+                  lang.t(
+                    'Leaf images are analyzed using a Convolutional Neural Network (CNN) trained on a dataset of healthy and diseased lemon leaf images to recognize visual patterns associated with common diseases.',
+                    'पातको फोटोलाई Convolutional Neural Network (CNN) प्रयोग गरी विश्लेषण गरिन्छ, जुन स्वस्थ र रोगी कागती पातका फोटोहरूको डेटासेट बाट तालिम प्राप्त गरिएको हो, ताकि सामान्य रोगहरूसँग सम्बन्धित दृश्य ढाँचा(visual pattern) चिन्न सकियोस्।',
+                  ),
+                  style: TextStyle(
+                    fontSize: 13.5,
+                    color: Colors.grey[700],
+                    height: 1.6,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Center(
+                child: Text(
+                  lang.t(
+                    'Automated Lemon Leaf Disease Detection Using CNN ',
+                    'CNN प्रयोग गरी स्वचालित कागतीको पात रोग पहिचान प्रणाली ',
+                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -334,21 +309,21 @@ class AboutScreen extends StatelessWidget {
 
   // ══ Header — back arrow + "About" + a Home shortcut link ═══════════════
   // This is the ONLY Home control on this screen — it actually navigates.
-  Widget _buildHeader(BuildContext context, LanguageProvider lang, bool isSmall) {
+  Widget _buildHeader(BuildContext context, LanguageProvider lang) {
     return Row(
       children: [
         IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios_new_rounded, size: isSmall ? 18 : 20),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
           color: const Color(0xFF1B2E1B),
         ),
         Expanded(
           child: Text(
             lang.t('About', 'बारेमा'),
-            style: TextStyle(
-              fontSize: isSmall ? 18 : 20,
+            style: const TextStyle(
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B2E1B),
+              color: Color(0xFF1B2E1B),
             ),
           ),
         ),
@@ -370,52 +345,16 @@ class AboutScreen extends StatelessWidget {
   }
 
   // ══ Hero banner — title, subtitle, and two action buttons ══════════════
-  // On very narrow screens the two buttons stack instead of squeezing
-  // Nepali labels ("रोग पहिचान गर्नुहोस्") into a half-width Row.
+  // Matches the light gradient / two-button layout requested, with both
+  // buttons fully bilingual via lang.t().
   Widget _buildHeroBanner(
     BuildContext context,
     LanguageProvider lang,
     GlobalKey diseaseSectionKey,
-    bool isSmall,
   ) {
-    final detectBtn = ElevatedButton.icon(
-      onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-      icon: const Icon(Icons.camera_alt_outlined, size: 18),
-      label: Text(lang.t('Detect Disease', 'रोग पहिचान गर्नुहोस्')),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: _green,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        textStyle: TextStyle(fontSize: isSmall ? 12.5 : 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 0,
-      ),
-    );
-    final learnMoreBtn = OutlinedButton.icon(
-      onPressed: () => Scrollable.ensureVisible(
-        diseaseSectionKey.currentContext!,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      ),
-      icon: const Icon(Icons.info_outline_rounded, size: 18),
-      label: Text(lang.t('Learn More', 'थप जान्नुहोस्')),
-      style: OutlinedButton.styleFrom(
-        foregroundColor: _green,
-        side: BorderSide(color: _green.withOpacity(0.6)),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        textStyle: TextStyle(fontSize: isSmall ? 12.5 : 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-    );
-
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(
-        isSmall ? 16 : 20,
-        isSmall ? 18 : 24,
-        isSmall ? 16 : 20,
-        isSmall ? 16 : 22,
-      ),
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 22),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -433,7 +372,7 @@ class AboutScreen extends StatelessWidget {
             child: Icon(
               Icons.eco_rounded,
               color: Colors.green.withOpacity(0.15),
-              size: isSmall ? 38 : 46,
+              size: 46,
             ),
           ),
           Column(
@@ -441,10 +380,10 @@ class AboutScreen extends StatelessWidget {
             children: [
               Text(
                 lang.t('Lemon Leaf Disease Detection', 'कागती पात रोग पहिचान'),
-                style: TextStyle(
-                  fontSize: isSmall ? 19 : 22,
+                style: const TextStyle(
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1B2E1B),
+                  color: Color(0xFF1B2E1B),
                   height: 1.25,
                 ),
               ),
@@ -455,30 +394,55 @@ class AboutScreen extends StatelessWidget {
                   'तस्बिरबाट कागती पातका रोगहरू पहिचान गर्न र स्वस्थ कागतीको बोटका लागि छिटो पहिचानमा सहयोग गर्न बनाइएको एप प्रणाली।',
                 ),
                 style: TextStyle(
-                  fontSize: isSmall ? 12 : 13,
+                  fontSize: 13,
                   color: Colors.grey[700],
                   height: 1.55,
                 ),
               ),
               const SizedBox(height: 18),
-              // Stack buttons vertically below ~340px so bilingual labels
-              // never get clipped in a half-width button.
-              if (isSmall)
-                Column(
-                  children: [
-                    SizedBox(width: double.infinity, child: detectBtn),
-                    const SizedBox(height: 10),
-                    SizedBox(width: double.infinity, child: learnMoreBtn),
-                  ],
-                )
-              else
-                Row(
-                  children: [
-                    Expanded(child: detectBtn),
-                    const SizedBox(width: 10),
-                    Expanded(child: learnMoreBtn),
-                  ],
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () =>
+                          Navigator.popUntil(context, (route) => route.isFirst),
+                      icon: const Icon(Icons.camera_alt_outlined, size: 18),
+                      label: Text(
+                        lang.t('Detect Disease', 'रोग पहिचान गर्नुहोस्'),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _green,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () => Scrollable.ensureVisible(
+                        diseaseSectionKey.currentContext!,
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeInOut,
+                      ),
+                      icon: const Icon(Icons.info_outline_rounded, size: 18),
+                      label: Text(lang.t('Learn More', 'थप जान्नुहोस्')),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: _green,
+                        side: BorderSide(color: _green.withOpacity(0.6)),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ],
@@ -491,12 +455,10 @@ class AboutScreen extends StatelessWidget {
     BuildContext context,
     LanguageProvider lang,
     _DiseaseClassInfo d,
-    bool isSmall,
   ) {
     final name = lang.t(d.nameEn, d.nameNp);
     final badge = lang.t(d.badgeEn, d.badgeNp);
     final desc = lang.t(d.descEn, d.descNp);
-    final imgSize = isSmall ? 60.0 : 72.0;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -513,12 +475,12 @@ class AboutScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               d.assetPath,
-              width: imgSize,
-              height: imgSize,
+              width: 72,
+              height: 72,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => Container(
-                width: imgSize,
-                height: imgSize,
+                width: 72,
+                height: 72,
                 color: Colors.grey[200],
                 child: Icon(Icons.image_not_supported, color: Colors.grey[400]),
               ),
@@ -529,22 +491,19 @@ class AboutScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Name + badge stack vertically on narrow screens instead
-                // of squeezing into one Row, since Nepali disease names
-                // and badge text run long.
-                if (isSmall) ...[
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontSize: 13.5,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1B),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        name,
+                        style: const TextStyle(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1B2E1B),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
+                    Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8,
                         vertical: 3,
@@ -557,52 +516,20 @@ class AboutScreen extends StatelessWidget {
                         badge,
                         style: TextStyle(
                           color: d.badgeColor,
-                          fontSize: 10,
+                          fontSize: 10.5,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                  ),
-                ] else
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          name,
-                          style: const TextStyle(
-                            fontSize: 14.5,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B2E1B),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: d.badgeColor.withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          badge,
-                          style: TextStyle(
-                            color: d.badgeColor,
-                            fontSize: 10.5,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
+                ),
                 const SizedBox(height: 6),
                 Text(
                   desc,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: isSmall ? 11.5 : 12,
+                    fontSize: 12,
                     color: Colors.grey[600],
                     height: 1.4,
                   ),
@@ -705,11 +632,10 @@ class AboutScreen extends StatelessWidget {
     required Color iconColor,
     required String title,
     required Widget child,
-    bool isSmall = false,
   }) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(isSmall ? 14 : 18),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -730,14 +656,12 @@ class AboutScreen extends StatelessWidget {
                 child: Icon(icon, color: iconColor, size: 18),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: isSmall ? 14 : 15,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1B2E1B),
-                  ),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1B2E1B),
                 ),
               ),
             ],
@@ -749,7 +673,7 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  Widget _step(int number, String text, bool isSmall) {
+  Widget _step(int number, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
@@ -779,41 +703,11 @@ class AboutScreen extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                fontSize: isSmall ? 12.5 : 13.5,
+                fontSize: 13.5,
                 color: Colors.grey[700],
                 height: 1.5,
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ── Footer: copyright ───────────────────────────────────────────
-  Widget _buildFooter(LanguageProvider lang) {
-    final year = DateTime.now().year;
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            height: 1,
-            width: 60,
-            color: Colors.grey[300],
-            margin: const EdgeInsets.only(bottom: 12),
-          ),
-          Text(
-            '© $year कागती (Kagati)',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[600],
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            lang.t('All rights reserved.', 'सर्वाधिकार सुरक्षित।'),
-            style: TextStyle(fontSize: 10.5, color: Colors.grey[500]),
           ),
         ],
       ),

@@ -6,10 +6,12 @@ treatment_map = {
             "treatment": [
                 "Spray copper fungicide (0.3%) every 10–14 days",
                 "Remove infected leaves and destroy them",
+
                 "Improve air circulation around plants",
                 "Cut and destroy infected branches",
                 "After pruning during winter, spray with 1% Bordeaux mixture",
                 "Since the disease is more common during the rainy season, spray 1% Bordeaux mixture or Copper oxychloride at 3 g per liter of water, thoroughly covering the plant, as soon as symptoms appear"
+
             ],
             "prevention": [
                 "Avoid leaf wetness for long time",
@@ -19,12 +21,18 @@ treatment_map = {
             "severity": "medium"
         },
         "np": {
+            "status": "एन्थ्राक्नोज रोग देखियो",
+            "treatment": [
+                "कपर फङ्गिसाइड ०.३% छर्नुहोस्",
+                "संक्रमित पातहरू हटाई नष्ट गर्नुहोस्",
+                "बोट वरिपरि हावा चल्ने व्यवस्था गर्नुहोस्"
             "status": "एन्थ्राक्नोज रोग देखियो( कोत्रे रोग)",
             "treatment": [
                
                 "रोगि हाँगा काटेर नष्ट गर्ने",
                 "हिउंदमा काटछाट गरिसकेपछि १% बोर्ड़ो मिक्सर छर्ने",
                 "बर्खामा यो रोग बढी देखिने हुँदा रोग देखिनासाथ १% बोर्ड़ो मिक्सर वा कपरअक्सीक्लोराईड ३ ग्राम प्रति लिटर पानीका दरले बोट भिज्ने गरि छर्ने"
+
             ],
             "prevention": [
                 "पात लामो समय भिज्न नदिनुहोस्",
@@ -70,11 +78,15 @@ treatment_map = {
         "en": {
             "status": "Citrus Canker Detected",
             "treatment": [
+                "Prune infected branches deeply",
+                "Apply copper-based bactericide",
+                "Sterilize pruning tools"
                 "Use disease-free seedlings/plants",
                 "If symptoms are seen on one or two plants, cut and burn the infected branches. Apply Bordeaux mixture or Kasugamycin to the cut areas",
                 "Keep the area around the plants clean and avoid causing injuries to the plants",
                 "As soon as the disease appears, spray Kasugamycin at 2 ml per liter of water, or use commercially available antibiotics effective against citrus canker 2–3 times at one-month intervals",
                 "Alternatively, spray 1% Bordeaux mixture at 10–15 day intervals to help control the disease"
+
 
             ],
             "prevention": [
@@ -87,9 +99,14 @@ treatment_map = {
         "np": {
             "status": "सिट्रस क्यान्कर देखियो",
             "treatment": [
+                "संक्रमित हाँगा काट्नुहोस्",
+                "कपर बेक्टेरिसाइड छर्नुहोस्",
+                "काट्ने औजार सफा गर्नुहोस्"
+
                 "एक दुइओटा बोटमा लक्ष्यण देखिएमा रोगि हाँगा काटेर जलाउने, काटेको भागमा बोर्ड़ो मिक्सर वा कसुगामाईसिन छर्ने",
                 "यो रोग देखिना साथ कसुगामाईसिन २ मिलि प्रति लिटर पानीमा मिसाई छर्ने वा बजारमा पहिने क्यंकर नियन्त्रण गर्ने क्षमता भएका कुनै एन्टीवायोटिक्स एक महिनाको फरकमा २-३ पटक छर्ने ",
                 "१ प्रतिसत बोर्ड़ो मिक्सर छरेर पनि यो रोग नियन्त्रण गर्न सकिन्छ १०-१५ दिनको फरकमा छर्ने"
+
             ],
             "prevention": [
                 "स्वस्थ बिरुवा प्रयोग गर्नुहोस्",
@@ -133,7 +150,10 @@ treatment_map = {
 
     "Deficiency Leaf": {
         "en": {
+            "status": "Nutrient Deficiency Detected",
+
             "status": " Deficiency Detected",
+
             "treatment": [
                 "Apply balanced NPK fertilizer",
                 "Add micronutrients (Mg, Zn, Fe)",
@@ -231,15 +251,22 @@ treatment_map = {
                 "To manage this disease, control insects such as scale insects and aphids, which produce these sugary substances",
                 "If scale insects are present on the affected plant, spray Atso, Sarvo, or a similar mineral oil at 10 ml per liter of water, ensuring the plant is thoroughly covered"
 
+
             ],
             "severity": "medium"
         },
         "np": {
+            "status": "सुटी मोल्ड देखियो",
+            "treatment": [
+                "नीम तेल प्रयोग गर्नुहोस्",
+                "साबुन पानीले पात सफा गर्नुहोस्",
+                "ढुसीनाशक प्रयोग गर्नुहोस्"
             "status": "सुटी मोल्ड देखियो (कालो ध्वासे)",
             "treatment": [
                 "नीम तेल प्रयोग गर्नुहोस्",
                 " यसको व्यवस्थापन गर्नको लागि कत्ले किरा, लाही जस्ता गुलियो पदार्थ निकाल्ने किराको नियन्त्रण गर्नुपर्छ",
                 "यो रोग लागेको बोटमा कत्ले किरा छ भने एट्सो वा सर्वो वा यस्तै प्रकारका खनिज तेल १० मिलि/लि पानीका दरले बोट भिज्ने गरि छर्ने"
+
             ],
             "prevention": [
                 "कीरा नियन्त्रण गर्नुहोस्",
@@ -261,19 +288,28 @@ treatment_map = {
             "prevention": [
                 "Regular inspection",
                 "Maintain humidity",
+                "Avoid dry conditions"
+
                 "Avoid dry conditions",
                 "Pesticides used to control mites are called acaricides",
                 "When symptoms of mite infestation appear, any suitable commercially available acaricide can be used according to the product instructions"
+
             ],
             "severity": "medium"
         },
         "np": {
+            "status": "स्पाइडर माइट्स देखियो",
+            "treatment": [
+                "नीम तेल छर्नुहोस्",
+                "आर्द्रता बढाउनुहोस्",
+                "संक्रमित पात हटाउनुहोस्"
             "status": "स्पाइडर माइट्स देखियो (सुलसुले)",
             "treatment": [
                 "नीम तेल छर्नुहोस्",
                 "आर्द्रता बढाउनुहोस्",
                 "संक्रमित पात हटाउनुहोस्",
                 "सुलसुले नियन्त्रण गर्ने विषादीलाई एकारीसायिड(Acaricide) भनिन्छ, यस्तो लक्षण देखिए बजारमा पाहिने कुनै पनि एकारीसायिड छर्न सकिन्छ"
+
             ],
             "prevention": [
                 "नियमित निरीक्षण गर्नुहोस्",
@@ -284,3 +320,6 @@ treatment_map = {
         }
     }
 }
+
+}
+
