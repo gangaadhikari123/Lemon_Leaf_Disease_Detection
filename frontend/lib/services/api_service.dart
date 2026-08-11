@@ -11,7 +11,8 @@ class ApiService {
 
   // static const String baseUrl = 'http://192.168.1.66:8000/api';
 
-    static const String baseUrl = 'http://127.0.0.1:8000/api';
+    // static const String baseUrl = 'http://127.0.0.1:8000/api';
+     static const String baseUrl = "http://192.168.1.73:8000/api";
 
   /// Mobile + Desktop — sends image as File
   static Future<PredictionResult> predictDisease({
